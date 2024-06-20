@@ -42,6 +42,15 @@
 - I'll also use the help of this great php [playlist](https://www.youtube.com/playlist?list=PLr3d3QYzkw2xabQRUpcZ_IBk9W50M9pe-)
 - also the help of the MDN documents
 
+### Entities (PDO, DBAL, Doctrine ORM)
+- I need to connect to the DB
+- **added .env file and downloaded the `vlucas/phpdotenv` package**
+- PHP Data Object (PDO) is a "data access layer"
+- while DataBase Abstraction Layer (DBAL) is an abstraction layer as the name says, which is more useful
+- we also use "doctrine ORM", while ORM stands for object relational mapping
+  - ORM is a technique to convert data between incompatible types using OOP
+  - this creates the effect of a virtual object database that can be used from within the programming language
+
 ## HTTP (conceptual)
 - refer to MDN [GLOSSARY](https://developer.mozilla.org/en-US/docs/Glossary) when you need
 - HTTP stand for hyper text transfer protocol

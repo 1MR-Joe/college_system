@@ -3,13 +3,18 @@ declare(strict_types=1);
 ini_set('display_errors', true);
 
 use App\Controllers\HomeController;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Doctrine\DBAL\DriverManager;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 
+// auto loading
 require __DIR__ . '/../vendor/autoload.php';
+
+// environment variables
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
 // create app
 $app = AppFactory::create();
 
@@ -24,6 +29,16 @@ $app->add(TwigMiddleware::create($app, $twig));
 
 // adding routes //TODO: abstract routes
 $app->get('/', [HomeController::class, 'index']);
+
+// database connection //TODO: abstract the connection
+$connectionParams = [
+    'driver' => $_ENV['DB_DRIVER'] ?? 'pdo_mysql',
+    'host' => $_ENV['DB_HOST'],
+    'dbname' => $_ENV['DB_NAME'],
+    'user' => $_ENV['DB_USER'],
+    'password' => $_ENV['DB_PASS'],
+];
+$connection = DriverManager::getConnection($connectionParams);
 
 $app->run();
 
