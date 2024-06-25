@@ -50,6 +50,8 @@
 - we also use "doctrine ORM", while ORM stands for object relational mapping
   - ORM is a technique to convert data between incompatible types using OOP
   - this creates the effect of a virtual object database that can be used from within the programming language
+- I'm not going to create the department entity, faculty is enough for sake of simplicity 
+- got back to my databases reference for ERD symbols and mapping
 
 ## HTTP (conceptual)
 - refer to MDN [GLOSSARY](https://developer.mozilla.org/en-US/docs/Glossary) when you need

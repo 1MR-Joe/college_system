@@ -15,6 +15,9 @@ we need a system for our college, it should provide some functionalities
   - force withdrawal for some courses for some students
   - modify attendance
 
+## [DB diagram](https://drive.google.com/drive/folders/1VWJEQQKJoLaR9zoVAUVo5OYvJfnYlBhX)
+- visit the link, or take a look at the pdf version in `/resources/diagrams` directory 
+
 ## steps
 1. tackle entities, course management, authentication
 2. 

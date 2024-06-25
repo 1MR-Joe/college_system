@@ -1,2 +1,6 @@
+# directories
 /vendor/
 /.idea
+
+# files
+.env
