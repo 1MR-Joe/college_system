@@ -8,6 +8,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table('students')]
@@ -29,6 +31,9 @@ class Student
     private \DateTime $birthdate;
     #[Column]
     private int $admissionYear;
+    #[ManyToOne(targetEntity: Faculty::class)]
+    #[JoinColumn(name: 'faculty_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private Faculty $faculty;
 
     public function getId(): string
     {
@@ -110,4 +115,16 @@ class Student
         $this->admissionYear = $admissionYear;
     }
 
+    public function getFaculty(): Faculty
+    {
+        return $this->faculty;
+    }
+
+    public function setFaculty(Faculty $faculty): void
+    {
+        $this->faculty = $faculty;
+    }
+
+
+    //TODO: add constructor
 }

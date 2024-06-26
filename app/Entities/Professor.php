@@ -7,6 +7,8 @@ use App\Enums\Gender;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table('professors')]
@@ -20,6 +22,9 @@ class Professor
     private string $phone;
     #[Column]
     private Gender $gender;
+    #[ManyToOne(targetEntity: Faculty::class)]
+    #[JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private Faculty $faculty;
 
     public function getSsn(): string
     {
@@ -60,4 +65,15 @@ class Professor
     {
         $this->gender = $gender;
     }
+
+    public function getFaculty(): Faculty
+    {
+        return $this->faculty;
+    }
+
+    public function setFaculty(Faculty $faculty): void
+    {
+        $this->faculty = $faculty;
+    }
+
 }

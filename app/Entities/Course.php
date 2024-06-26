@@ -8,25 +8,29 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table('courses')]
 class Course
 {
-    #[Column, Id]
+    #[Column(name: 'course_code'), Id]
     private string $courseCode;
-    #[Column]
+    #[Column(name: 'course_name')]
     private string $courseName;
     #[Column]
     private int $level;
-    #[Column]
+    #[Column(name: 'credit_hours')]
     private int $creditHours;
     #[Column(type: Types::TEXT)]
     private string $description;
     #[OneToMany(targetEntity: Course::class)]
+    #[JoinColumn(name: 'pre_requests')]
     private Collection $preRequests;
-
+    #[ManyToMany(targetEntity: Faculty::class)]
+    private Collection $offeringFaculties;
     public function __construct() {
         $this->preRequests = new ArrayCollection();
     }
@@ -91,4 +95,13 @@ class Course
         $this->preRequests = $preRequests;
     }
 
+    public function getOfferingFaculties(): Collection
+    {
+        return $this->offeringFaculties;
+    }
+
+    public function setOfferingFaculties(Collection $offeringFaculties): void
+    {
+        $this->offeringFaculties = $offeringFaculties;
+    }
 }
