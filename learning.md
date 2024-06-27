@@ -53,12 +53,28 @@
 - I'm not going to create the department entity, faculty is enough for sake of simplicity 
 - got back to my databases reference for ERD symbols and mapping
 
+### ORM
+- start [here](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/tutorials/getting-started.html)
+- ORM can use attributes or XML tags to specify its metadata
+- all attributes [here](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/reference/attributes-reference.html)
+- unit of work is an object-based transaction, it starts by the initialization of the entity manager and ends by calling entityManager#flush
+- unit of work stores all persisted changes and executes them once for efficiency’s sake
+- the bigger the unit of work gets, the heavier the execution becomes.
+- the entity manager is considered the entry point for ORM
+- entities have four states: new, managed, detached, removed
+- more working with objects [here](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/reference/working-with-objects.html)
+- entity manager needs both a connection and a configuration objects to be initialized
+- run `composer require doctrine/migrations`
+- migrations configuration (go to the advanced section to set up using entity manager) [here](https://www.doctrine-project.org/projects/doctrine-migrations/en/3.8/reference/configuration.html#advanced)
+- there was an issue with the course referencing its own attribute
+- for decimal data type, precision is the number of digits left to the floating point, and scale is the number of digits to the right of the floating point
+
 ## HTTP (conceptual)
 - refer to MDN [GLOSSARY](https://developer.mozilla.org/en-US/docs/Glossary) when you need
-- HTTP stand for hyper text transfer protocol
+- HTTP stands for hyper text transfer protocol
 - this protocol is what powers the world wide web
 - this protocol is used in the application layer of the OSI network model
-- client opens the connection and makes a request while the server sends the response
+- the client opens the connection and makes a request while the server sends the response
 - [difference between webpages, websites, webservers, and search engines](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/Pages_sites_servers_and_search_engines)
 
 ### HTTP is a stateless protocol

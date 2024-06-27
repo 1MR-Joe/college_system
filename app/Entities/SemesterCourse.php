@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Entities;
 
 use App\Enums\Semester;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -21,10 +22,12 @@ class SemesterCourse
     private Semester $semester;
     #[Column]
     private int $year;
+    #[Column(type: Types::STRING)]
     #[ManyToOne(targetEntity: Course::class)]
-    #[JoinColumn(name: 'course_code', referencedColumnName: 'course_code', onDelete: 'SET NULL')]
+    #[JoinColumn(name: 'course_code', referencedColumnName: 'code', onDelete: 'SET NULL')]
     private string $courseCode;
 
+    #[Column(type: Types::STRING)]
     #[ManyToOne(targetEntity: Professor::class)]
     #[JoinColumn(name: 'professor_ssn', referencedColumnName: 'ssn', onDelete: 'SET NULL')]
     private string $professorSsn;

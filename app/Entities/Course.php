@@ -9,27 +9,30 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table('courses')]
 class Course
 {
-    #[Column(name: 'course_code'), Id]
-    private string $courseCode;
-    #[Column(name: 'course_name')]
-    private string $courseName;
+    #[Column, Id]
+    #[ManyToOne(inversedBy: 'pre_requests')]
+    private string $code;
+    #[Column]
+    private string $name;
     #[Column]
     private int $level;
     #[Column(name: 'credit_hours')]
     private int $creditHours;
     #[Column(type: Types::TEXT)]
     private string $description;
-    #[OneToMany(targetEntity: Course::class)]
+    #[OneToMany(targetEntity: Course::class, mappedBy: 'code')]
     #[JoinColumn(name: 'pre_requests')]
     private Collection $preRequests;
-    #[ManyToMany(targetEntity: Faculty::class)]
+    #[OneToMany(targetEntity: Faculty::class, mappedBy: 'id')]
     private Collection $offeringFaculties;
     public function __construct() {
         $this->preRequests = new ArrayCollection();

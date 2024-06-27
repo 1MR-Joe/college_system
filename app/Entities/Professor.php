@@ -22,8 +22,11 @@ class Professor
     private string $phone;
     #[Column]
     private Gender $gender;
+    #[Column]
+    private string $password;
     #[ManyToOne(targetEntity: Faculty::class)]
     #[JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    //TODO: learn about JoinColumn attribute, you can find a link in `learning.md` file
     private Faculty $faculty;
 
     public function getSsn(): string
@@ -76,4 +79,13 @@ class Professor
         $this->faculty = $faculty;
     }
 
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
 }

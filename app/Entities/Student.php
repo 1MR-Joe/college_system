@@ -21,7 +21,7 @@ class Student
     private string $ssn;
     #[Column]
     private string $name;
-    #[Column(type: Types::DECIMAL)]//TODO: precision and scale ??
+    #[Column(type: Types::DECIMAL, precision: 2, scale: 2)]//TODO: precision and scale ??
     private float $gpa;
     #[Column]
     private string $phone;
@@ -31,6 +31,8 @@ class Student
     private \DateTime $birthdate;
     #[Column]
     private int $admissionYear;
+    #[Column]
+    private string $password;
     #[ManyToOne(targetEntity: Faculty::class)]
     #[JoinColumn(name: 'faculty_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     private Faculty $faculty;
@@ -125,6 +127,14 @@ class Student
         $this->faculty = $faculty;
     }
 
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
 
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
     //TODO: add constructor
 }

@@ -4,6 +4,8 @@ ini_set('display_errors', true);
 
 use App\Controllers\HomeController;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
@@ -39,6 +41,12 @@ $connectionParams = [
     'password' => $_ENV['DB_PASS'],
 ];
 $connection = DriverManager::getConnection($connectionParams);
+$config = ORMSetup::createAttributeMetadataConfiguration([__DIR__.'/../app/Entities']);
+
+$entityManager = new EntityManager($connection, $config);
+
+
+
 
 $app->run();
 
