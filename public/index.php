@@ -2,13 +2,12 @@
 declare(strict_types=1);
 ini_set('display_errors', true);
 
-use App\Controllers\HomeController;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+
+// path constants
+require __DIR__.'/../configs/path_constants.php';
 
 // auto loading
 require __DIR__ . '/../vendor/autoload.php';
@@ -17,38 +16,27 @@ require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
+// DI container
+// I was using the example in slim documentation
+// then I moved container bindings to its own file
+// then moved the whole container definition in another file
+$container = require CONFIGS_PATH . '/Container/container.php';
+AppFactory::setContainer($container);
+
 // create app
 $app = AppFactory::create();
 
-// create twig
-$twig = Twig::create(__DIR__ . '/../resources/views', [
-    'cache' => false,
-    'auto_reload' => true,
-]);
+// create twig instance
+// but now twig is one of container bindings and can be injected
 
 // Add Twig-View Middleware
-$app->add(TwigMiddleware::create($app, $twig));
+$app->add(TwigMiddleware::create($app, $container->get(Twig::class)));
 
-// adding routes //TODO: abstract routes
-$app->get('/', [HomeController::class, 'index']);
+// routes are abstracted away in their own file
+$router = require CONFIGS_PATH . '/routes.php';
+$router($app);
 
-// database connection //TODO: abstract the connection
-$connectionParams = [
-    'driver' => $_ENV['DB_DRIVER'] ?? 'pdo_mysql',
-    'host' => $_ENV['DB_HOST'],
-    'dbname' => $_ENV['DB_NAME'],
-    'user' => $_ENV['DB_USER'],
-    'password' => $_ENV['DB_PASS'],
-];
-$connection = DriverManager::getConnection($connectionParams);
-$config = ORMSetup::createAttributeMetadataConfiguration([__DIR__.'/../app/Entities']);
-
-$entityManager = new EntityManager($connection, $config);
-
-
-
+// database connection was abstracted away to its own file
 
 $app->run();
-
-//TODO: make constants file
 //TODO: start with the login form
