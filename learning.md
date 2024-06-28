@@ -38,6 +38,7 @@
 
 ### back to slim framework
 - slim uses psr7 interfaces for its request and response objects
+- the args array at controller function definition is an array of route parameters
 - I'll skim through slim's documentation and be back
 - I'll also use the help of this great php [playlist](https://www.youtube.com/playlist?list=PLr3d3QYzkw2xabQRUpcZ_IBk9W50M9pe-)
 - also the help of the MDN documents
@@ -105,6 +106,12 @@ Neither the server nor the client remember previous communications. For example,
   - this mechanism has some conditions to be triggered
   - as you noticed, this is an intermediary mechanism that does not transport any data, so we need to make these requests as light as possible so that we give the true performance to the actual requests
 
+## dependency injection (conceptual)
+- it's straightforward; instead of class X initializing its dependencies to start using them, class X received its dependencies in the constructor
+- dependency injection is a way to apply inversion of control in OOP 
+- inversion of control provides separation of logic, code reusability, loose coupling, and easier testing. It leads to a modular code
+- one of inversion of control downsides is Glue code, dependencies depending on other dependencies depending on other dependencies and so on.
+
 ## server-side programming (MDN Docs)
 - [start reading](https://developer.mozilla.org/en-US/docs/Learn/Server-side)
 - Getting started with server-side programming is usually easier than client-side development, because dynamic websites tend to perform a lot of very similar operations (retrieving data from a database and displaying it in a page, validating user-entered data and saving it in a database, checking user permissions and logging users in, etc.), and are constructed using web frameworks that make these and other common web server operations easy.
@@ -113,9 +120,9 @@ Neither the server nor the client remember previous communications. For example,
   - dynamic server: a static web server + extra software (backend software) + database
 -----------------------------------------------
 ### need to (study / revise) stack
+- MVC pattern
 - cookies and their management
 - web socket
 - web infrastructure
-- DI containers
 - CSRF
 - XSS

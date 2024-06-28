@@ -24,6 +24,8 @@ class Professor
     private Gender $gender;
     #[Column]
     private string $password;
+    #[Column]
+    private bool $isAdmin;
     #[ManyToOne(targetEntity: Faculty::class)]
     #[JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     //TODO: learn about JoinColumn attribute, you can find a link in `learning.md` file
@@ -87,5 +89,15 @@ class Professor
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
     }
 }
