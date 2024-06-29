@@ -21,7 +21,7 @@ class Student
     private string $ssn;
     #[Column]
     private string $name;
-    #[Column(type: Types::DECIMAL, precision: 2, scale: 2)]//TODO: precision and scale ??
+    #[Column(type: Types::DECIMAL, precision: 2, scale: 2)]
     private float $gpa;
     #[Column]
     private string $phone;

@@ -13,6 +13,6 @@ class HomeController
     }
 
     public function index(Request $request, Response $response, $args) {
-        return Twig::fromRequest($request)->render($response, 'index.twig');
+        return Twig::fromRequest($request)->render($response, 'student/dashboard.twig');
     }
 }
