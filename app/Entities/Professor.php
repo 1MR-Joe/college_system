@@ -28,8 +28,8 @@ class Professor
     private bool $isAdmin;
     #[ManyToOne(targetEntity: Faculty::class)]
     #[JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
-    //TODO: learn about JoinColumn attribute, you can find a link in `learning.md` file
     private Faculty $faculty;
+    //TODO: learn about JoinColumn attribute, you can find a link in `learning.md` file
 
     public function getSsn(): string
     {

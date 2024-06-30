@@ -34,7 +34,7 @@ class Student
     #[Column]
     private string $password;
     #[ManyToOne(targetEntity: Faculty::class)]
-    #[JoinColumn(name: 'faculty_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[JoinColumn(name: 'faculty', referencedColumnName: 'id', onDelete: 'SET NULL')]
     private Faculty $faculty;
 
     public function getId(): string
@@ -71,7 +71,7 @@ class Student
     {
         return $this->gpa;
     }
-
+    //TODO: setGpa function; it should make some calculations
     public function setGpa(float $gpa): void
     {
         $this->gpa = $gpa;

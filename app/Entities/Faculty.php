@@ -24,9 +24,10 @@ class Faculty
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(int $id): Faculty
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getCode(): string
@@ -34,9 +35,10 @@ class Faculty
         return $this->code;
     }
 
-    public function setCode(string $code): void
+    public function setCode(string $code): Faculty
     {
         $this->code = $code;
+        return $this;
     }
 
     public function getName(): string
@@ -44,8 +46,9 @@ class Faculty
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name): Faculty
     {
         $this->name = $name;
+        return $this;
     }
 }

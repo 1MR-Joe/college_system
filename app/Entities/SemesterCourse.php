@@ -24,22 +24,23 @@ class SemesterCourse
     private int $year;
     #[Column(type: Types::STRING)]
     #[ManyToOne(targetEntity: Course::class)]
-    #[JoinColumn(name: 'course_code', referencedColumnName: 'code', onDelete: 'SET NULL')]
-    private string $courseCode;
+    #[JoinColumn(name: 'course', referencedColumnName: 'code', onDelete: 'SET NULL')]
+    private Course $course;
 
     #[Column(type: Types::STRING)]
     #[ManyToOne(targetEntity: Professor::class)]
-    #[JoinColumn(name: 'professor_ssn', referencedColumnName: 'ssn', onDelete: 'SET NULL')]
-    private string $professorSsn;
+    #[JoinColumn(name: 'professor', referencedColumnName: 'ssn', onDelete: 'SET NULL')]
+    private Professor $professor;
 
     public function getId(): string
     {
         return $this->id;
     }
 
-    public function setId(string $id): void
+    public function setId(string $id): SemesterCourse
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getSemester(): Semester
@@ -47,9 +48,10 @@ class SemesterCourse
         return $this->semester;
     }
 
-    public function setSemester(Semester $semester): void
+    public function setSemester(Semester $semester): SemesterCourse
     {
         $this->semester = $semester;
+        return $this;
     }
 
     public function getYear(): int
@@ -57,29 +59,32 @@ class SemesterCourse
         return $this->year;
     }
 
-    public function setYear(int $year): void
+    public function setYear(int $year): SemesterCourse
     {
         $this->year = $year;
+        return $this;
     }
 
-    public function getCourseCode(): string
+    public function getCourse(): Course
     {
-        return $this->courseCode;
+        return $this->course;
     }
 
-    public function setCourseCode(string $courseCode): void
+    public function setCourse(Course $course): SemesterCourse
     {
-        $this->courseCode = $courseCode;
+        $this->course = $course;
+        return $this;
     }
 
-    public function getProfessorSsn(): string
+    public function getProfessor(): Professor
     {
-        return $this->professorSsn;
+        return $this->professor;
     }
 
-    public function setProfessorSsn(string $professorSsn): void
+    public function setProfessor(Professor $professor): SemesterCourse
     {
-        $this->professorSsn = $professorSsn;
+        $this->professor = $professor;
+        return $this;
     }
 
 }

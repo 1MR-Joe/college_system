@@ -19,41 +19,44 @@ class Enrollment
     // foreign keys
     #[Column, Id]
     #[ManyToOne(targetEntity: SemesterCourse::class)]
-    #[JoinColumn(name: 'semester_course_id', referencedColumnName: 'id', onDelete: 'CASCADE')] //TODO: cascade until I can restrict
-    private int $semesterCourseId;
+    #[JoinColumn(name: 'semester_course', referencedColumnName: 'id', onDelete: 'CASCADE')] //TODO: cascade until I can restrict
+    private SemesterCourse $semesterCourse;
     #[Column, Id]
     #[ManyToOne(targetEntity: Student::class)]
-    #[JoinColumn(name: 'student_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    private string $studentId;
+    #[JoinColumn(name: 'student', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Student $student;
 
     public function getGrade(): int
     {
         return $this->grade;
     }
 
-    public function setGrade(int $grade): void
+    public function setGrade(int $grade): Enrollment
     {
         $this->grade = $grade;
+        return $this;
     }
 
-    public function getSemesterCourseId(): int
+    public function getSemesterCourse(): SemesterCourse
     {
-        return $this->semesterCourseId;
+        return $this->semesterCourse;
     }
 
-    public function setSemesterCourseId(int $semesterCourseId): void
+    public function setSemesterCourse(SemesterCourse $semesterCourse): Enrollment
     {
-        $this->semesterCourseId = $semesterCourseId;
+        $this->semesterCourse = $semesterCourse;
+        return $this;
     }
 
-    public function getStudentId(): string
+    public function getStudent(): Student
     {
-        return $this->studentId;
+        return $this->student;
     }
 
-    public function setStudentId(string $studentId): void
+    public function setStudent(Student $student): Enrollment
     {
-        $this->studentId = $studentId;
+        $this->student = $student;
+        return $this;
     }
 
 }

@@ -9,8 +9,6 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
@@ -38,24 +36,24 @@ class Course
         $this->preRequests = new ArrayCollection();
     }
 
-    public function getCourseCode(): string
+    public function getCode(): string
     {
-        return $this->courseCode;
+        return $this->code;
     }
 
-    public function setCourseCode(string $courseCode): void
+    public function setCode(string $courseCode): void
     {
-        $this->courseCode = $courseCode;
+        $this->code = $courseCode;
     }
 
     public function getCourseName(): string
     {
-        return $this->courseName;
+        return $this->name;
     }
 
     public function setCourseName(string $courseName): void
     {
-        $this->courseName = $courseName;
+        $this->name = $courseName;
     }
 
     public function getLevel(): int
@@ -63,9 +61,11 @@ class Course
         return $this->level;
     }
 
-    public function setLevel(int $level): void
+    public function setLevel(int $level): Course
     {
         $this->level = $level;
+
+        return $this;
     }
 
     public function getCreditHours(): int
@@ -73,9 +73,11 @@ class Course
         return $this->creditHours;
     }
 
-    public function setCreditHours(int $creditHours): void
+    public function setCreditHours(int $creditHours): Course
     {
         $this->creditHours = $creditHours;
+
+        return $this;
     }
 
     public function getDescription(): string
@@ -83,9 +85,11 @@ class Course
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(string $description): Course
     {
         $this->description = $description;
+
+        return $this;
     }
 
     public function getPreRequests(): Collection
@@ -93,9 +97,11 @@ class Course
         return $this->preRequests;
     }
 
-    public function setPreRequests(Collection $preRequests): void
+    public function addPreRequest(Course $preRequest): Course
     {
-        $this->preRequests = $preRequests;
+        $this->preRequests->add($preRequest);
+
+        return $this;
     }
 
     public function getOfferingFaculties(): Collection
@@ -103,8 +109,10 @@ class Course
         return $this->offeringFaculties;
     }
 
-    public function setOfferingFaculties(Collection $offeringFaculties): void
+    public function addOfferingFaculty(Faculty $offeringFaculty): Course
     {
-        $this->offeringFaculties = $offeringFaculties;
+        $this->offeringFaculties->add($offeringFaculty);
+
+        return $this;
     }
 }
