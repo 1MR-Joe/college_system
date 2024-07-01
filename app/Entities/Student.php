@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Entities;
 
 use App\Enums\Gender;
+use Cassandra\Date;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
@@ -37,6 +39,7 @@ class Student
     #[JoinColumn(name: 'faculty', referencedColumnName: 'id', onDelete: 'SET NULL')]
     private Faculty $faculty;
 
+    //TODO: fluent setters please
     public function getId(): string
     {
         return $this->id;
@@ -136,5 +139,41 @@ class Student
     {
         $this->password = $password;
     }
-    //TODO: add constructor
+
+    public function __construct(array $data){
+        // take inputs
+        // TODO: assuming data is validated
+        $this->setName($data['name']);
+        $this->setSsn($data['ssn']);
+        $this->setFaculty($data['faculty']);
+        $this->setPhone($data['phone']);
+        $this->setBirthdate(new \DateTime($data['birthdate']));
+        $this->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]));
+
+        // admission year and gpa handling
+        $today = new \DateTime('now');
+        $this->admissionYear = (int) $today->format('Y');
+        $this->gpa = 4;
+
+        // id handling
+        // Id = admissionYear + facultyId + serialNumber
+        $facultyId = strval($this->faculty->getId());
+        if(strlen($facultyId) == 1) {
+            $facultyId = '0'.$facultyId;
+        }
+
+        $serialNumber = strval($this->faculty->getSerialNumber($this->admissionYear));
+        switch(strlen($serialNumber)){
+            case 1:
+                $serialNumber = '00'.$serialNumber;
+            break;
+            case 2:
+                $serialNumber = '0'.$serialNumber;
+            break;
+        }
+
+        $this->id = $today->format('y') . $facultyId . $serialNumber;
+        $this->faculty->updateSerialNumber($this->admissionYear);
+
+    }
 }

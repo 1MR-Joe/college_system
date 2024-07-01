@@ -2,6 +2,9 @@
 declare(strict_types=1);
 ini_set('display_errors', true);
 
+use App\Entities\Faculty;
+use App\Entities\Student;
+use Doctrine\ORM\EntityManager;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
@@ -39,4 +42,19 @@ $router($app);
 // database connection was abstracted away to its own file
 
 $app->run();
-//TODO: start with the login form
+
+//TODO: remove this code (just for testing code)
+//$faculty = new Faculty(['id' => 5, 'name' => 'Computer Science', 'code' => 'CS']);
+//$student = new Student([
+//    'name' => 'Joe',
+//    'ssn' => '310',
+//    'phone' => '9876565',
+//    'faculty' => $faculty,
+//    'userType' => 'student',
+//    'birthdate' => '2010-02-01',
+//    'password' => '123',
+//    'confirmPassword' => '123'
+//]);
+//
+//echo $student->getId();
+//

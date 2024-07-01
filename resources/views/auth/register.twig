@@ -21,7 +21,7 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        input[type="text"], input[type="password"], input[type="email"] {
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -46,9 +46,17 @@
 <div class="container">
     <h2>Register</h2>
     <form action="/register" method="post">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="number" name="ssn" placeholder="SSN" required>
+        <input type="number" name="phone" placeholder="Phone Number" required>
+        <select name="userType" id="userType" required>
+            <option value="">Choose User Type</option>
+            <option value="student">Student</option>
+            <option value="professor">Professor</option>
+        </select>
+        <input type="date" name="birthdate" placeholder="Birthdate" required>
         <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
         <input type="submit" value="Register">
     </form>
 </div>
