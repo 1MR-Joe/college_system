@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Entities\Faculty;
 use Doctrine\ORM\EntityManager;
 
 class FacultyController
@@ -17,5 +18,15 @@ class FacultyController
 
     public function deleteFaculty() {
 
+    }
+
+    public function getFacultyNames(): array
+    {
+        return $this->entityManager
+            ->getRepository(Faculty::class)
+            ->createQueryBuilder('f')
+            ->select('f.id', 'f.name')
+            ->getQuery()
+            ->getArrayResult();
     }
 }

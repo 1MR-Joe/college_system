@@ -81,6 +81,9 @@
 ### HTTP is a stateless protocol
 Neither the server nor the client remember previous communications. For example, relying on HTTP alone, a server can't remember a password you typed or remember your progress on an incomplete transaction. You need an application server (backend) for tasks like that.
 
+### HTTP status codes
+![image](./resources/images/http_status_codes.png)
+
 ### HTTP Session
 - HTTP is a client-server protocol
 - the client is the one that starts the connection
@@ -111,6 +114,12 @@ Neither the server nor the client remember previous communications. For example,
 - dependency injection is a way to apply inversion of control in OOP 
 - inversion of control provides separation of logic, code reusability, loose coupling, and easier testing. It leads to a modular code
 - one of inversion of control downsides is Glue code, dependencies depending on other dependencies depending on other dependencies and so on.
+
+### DI scenario
+- I use request validator classes to validate the upcoming request
+- some request validators use the entity manager which is injected in the constructor and should be handled by the DI container
+- I need to initialize the request validator in the controller, but I'm asked to provide the entity manager
+- I also don't want the controller to access the entity manager, so I use the FACTORY DESIGN PATTERN
 
 ## server-side programming (MDN Docs)
 - [start reading](https://developer.mozilla.org/en-US/docs/Learn/Server-side)

@@ -70,24 +70,23 @@ class Faculty
         return $this;
     }
 
-    public function getSerialNumber(int $year): int {
-
-        try{
-            return $this->facultyYear[strval($year)];
-        } catch(\Throwable $e) {
-            $this->createSerialNumber($year);
-            return $this->facultyYear[strval($year)];
-        }
-    }
-
 //    public function getSerialNumber(int $year): int {
 //
-//        if($this->facultyYear[strval($year)] == null) {
+//        try{
+//            return $this->facultyYear[strval($year)];
+//        } catch(\Throwable $e) {
 //            $this->createSerialNumber($year);
+//            return $this->facultyYear[strval($year)];
 //        }
-//
-//        return $this->facultyYear[strval($year)];
 //    }
+
+    public function getSerialNumber(int $year): int {
+        if(! array_key_exists(strval($year), $this->facultyYear)) {
+            $this->createSerialNumber($year);
+        }
+
+        return $this->facultyYear[strval($year)];
+    }
 
     public function __construct(array $data)
     {

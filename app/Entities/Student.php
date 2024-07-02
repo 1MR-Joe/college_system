@@ -23,12 +23,12 @@ class Student
     private string $ssn;
     #[Column]
     private string $name;
-    #[Column(type: Types::DECIMAL, precision: 2, scale: 2)]
+    #[Column(type: Types::FLOAT)]
     private float $gpa;
     #[Column]
     private string $phone;
     #[Column]
-    private Gender $gender;
+    private Gender $gender;//TODO: make the DB allow only some values
     #[Column]
     private \DateTime $birthdate;
     #[Column]
@@ -140,16 +140,7 @@ class Student
         $this->password = $password;
     }
 
-    public function __construct(array $data){
-        // take inputs
-        // TODO: assuming data is validated
-        $this->setName($data['name']);
-        $this->setSsn($data['ssn']);
-        $this->setFaculty($data['faculty']);
-        $this->setPhone($data['phone']);
-        $this->setBirthdate(new \DateTime($data['birthdate']));
-        $this->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]));
-
+    public function completeCredentials() {
         // admission year and gpa handling
         $today = new \DateTime('now');
         $this->admissionYear = (int) $today->format('Y');
@@ -166,14 +157,16 @@ class Student
         switch(strlen($serialNumber)){
             case 1:
                 $serialNumber = '00'.$serialNumber;
-            break;
+                break;
             case 2:
                 $serialNumber = '0'.$serialNumber;
-            break;
+                break;
         }
 
         $this->id = $today->format('y') . $facultyId . $serialNumber;
         $this->faculty->updateSerialNumber($this->admissionYear);
 
+    }
+    public function __construct(){
     }
 }

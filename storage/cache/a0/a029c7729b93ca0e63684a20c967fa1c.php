@@ -34,6 +34,7 @@ class __TwigTemplate_aed8375a30438f689bd515713d15274b extends Template
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
+        // line 1
         yield "<!DOCTYPE html>
 <html lang=\"en\">
 <head>
@@ -85,12 +86,37 @@ class __TwigTemplate_aed8375a30438f689bd515713d15274b extends Template
         <input type=\"text\" name=\"name\" placeholder=\"Name\" required>
         <input type=\"number\" name=\"ssn\" placeholder=\"SSN\" required>
         <input type=\"number\" name=\"phone\" placeholder=\"Phone Number\" required>
-        <select name=\"userType\" id=\"userType\" required>
+        <input type=\"date\" name=\"birthdate\" placeholder=\"Birthdate\" required>
+        <select name=\"userType\" required>
             <option value=\"\">Choose User Type</option>
             <option value=\"student\">Student</option>
             <option value=\"professor\">Professor</option>
         </select>
-        <input type=\"date\" name=\"birthdate\" placeholder=\"Birthdate\" required>
+        <select name=\"gender\" required>
+            <option value=\"\">Choose Gender</option>
+            <option value=\"female\">Female</option>
+            <option value=\"male\">Male</option>
+        </select>
+        <select name=\"faculty\" required>
+            <option value=\"\">Choose Faculty</option>
+            ";
+        // line 65
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable(($context["faculties"] ?? null));
+        foreach ($context['_seq'] as $context["_key"] => $context["f"]) {
+            // line 66
+            yield "                <option value=\"";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["f"], "id", [], "any", false, false, false, 66), "html", null, true);
+            yield "\">";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["f"], "name", [], "any", false, false, false, 66), "html", null, true);
+            yield "</option>
+            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['f'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 68
+        yield "        </select>
         <input type=\"password\" name=\"password\" placeholder=\"Password\" required>
         <input type=\"password\" name=\"confirmPassword\" placeholder=\"Confirm Password\" required>
         <input type=\"submit\" value=\"Register\">
@@ -113,9 +139,17 @@ class __TwigTemplate_aed8375a30438f689bd515713d15274b extends Template
     /**
      * @codeCoverageIgnore
      */
+    public function isTraitable()
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDebugInfo()
     {
-        return array ();
+        return array (  119 => 68,  108 => 66,  104 => 65,  38 => 1,);
     }
 
     public function getSourceContext()

@@ -49,12 +49,23 @@
         <input type="text" name="name" placeholder="Name" required>
         <input type="number" name="ssn" placeholder="SSN" required>
         <input type="number" name="phone" placeholder="Phone Number" required>
-        <select name="userType" id="userType" required>
+        <input type="date" name="birthdate" placeholder="Birthdate" required>
+        <select name="userType" required>
             <option value="">Choose User Type</option>
             <option value="student">Student</option>
             <option value="professor">Professor</option>
         </select>
-        <input type="date" name="birthdate" placeholder="Birthdate" required>
+        <select name="gender" required>
+            <option value="">Choose Gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select>
+        <select name="faculty" required>
+            <option value="">Choose Faculty</option>
+            {% for f in faculties %}
+                <option value="{{ f.id }}">{{ f.name }}</option>
+            {% endfor %}
+        </select>
         <input type="password" name="password" placeholder="Password" required>
         <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
         <input type="submit" value="Register">
