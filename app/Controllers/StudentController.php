@@ -3,55 +3,37 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Entities\Faculty;
 use App\Entities\Student;
-use App\Enums\Gender;
 use App\RequestValidators\RequestValidatorFactory;
 use App\RequestValidators\StudentRequestValidator;
 use Doctrine\ORM\EntityManager;
-use Slim\Views\Twig;
-use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Twig;
 
-class AuthController
+class StudentController
 {
     public function __construct(
         private readonly Twig $twig,
-        private readonly EntityManager $entityManager,
         private readonly RequestValidatorFactory $requestValidatorFactory,
+        private readonly EntityManager $entityManager,
         private readonly FacultyController $facultyController
     ){
     }
 
-    public function loginView(Request $request, Response $response, array $args): Response {
-        return $this->twig->render($response, 'auth/login.twig');
-    }
-    public function registerView(Request $request, Response $response, array $args): Response {
+    public function form(Request $request, Response $response, array $args): Response {
         return $this->twig->render(
             $response,
-            'auth/registerStudent.twig',
+            '/auth/registerStudent.twig',
             ['faculties' => $this->facultyController->getFacultyNames()]
         );
     }
 
-    public function loginUser(Request $request, Response $response, array $args): Response{
-        var_dump($request->getParsedBody());
-        return $response;
-    }
-
-    public function registerUser(Request $request, Response $response, array $args): Response{
-        // take inputs
+    public function register(Request $request, Response $response, array $args): Response {
         $data = $request->getParsedBody();
-        var_dump($data);
-
-        echo 'validating student'; echo "<br>";
 
         $validator = $this->requestValidatorFactory->make(StudentRequestValidator::class);
-        $validator->validate($data);
-        //TODO: validate data
-        // replace faculty id with the true instance
-        // plug in the array
-        // remove the automatic faculty setting part
+        $data = $validator->validate($data);
 
         $student = new Student();
         $student->setName($data['name']);
@@ -67,6 +49,6 @@ class AuthController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        return $response;
+        return $response->withHeader('Location','/')->withStatus(302);
     }
 }

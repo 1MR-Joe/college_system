@@ -6,21 +6,24 @@ declare(strict_types=1);
 // this array will be handed to the "CONTAINER BUILDER" class which supports an array of bindings as input
 
 use App\Config;
+use App\Contracts\RequestValidatorFactoryInterface;
+use App\RequestValidators\RequestvalidatorFactory;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
+use Psr\Container\ContainerInterface;
 use Slim\Views\Twig;
 
 return [
     Config::class => fn() => new Config($_ENV),
-    EntityManager::class => function(Config $config) {
+    EntityManager::class => function (Config $config) {
         $connection = DriverManager::getConnection($config->get('db'));
 
-        $ormSetup = ORMSetup::createAttributeMetadataConfiguration([__DIR__.'/../app/Entities'], isDevMode: true); //TODO: use config class to abstract this
+        $ormSetup = ORMSetup::createAttributeMetadataConfiguration([__DIR__ . '/../app/Entities'], isDevMode: true); //TODO: use config class to abstract this
 
         return new EntityManager($connection, $ormSetup);
-    } ,
-    Twig::class => function() {
+    },
+    Twig::class => function () {
         $twig = Twig::create(
             VIEWS_PATH, [
                 'cache' => STORAGE_PATH . '/cache',
@@ -31,5 +34,8 @@ return [
         //TODO: add any twig extensions here
 
         return $twig;
-    } ,
+    },
+    RequestValidatorFactoryInterface::class => fn(ContainerInterface $container) => $container->get(
+        RequestvalidatorFactory::class
+    ),
 ];

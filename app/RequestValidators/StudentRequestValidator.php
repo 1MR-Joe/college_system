@@ -5,6 +5,7 @@ namespace App\RequestValidators;
 
 use App\Contracts\RequestValidatorInterface;
 use App\Entities\Faculty;
+use App\Enums\Gender;
 use App\Exceptions\ValidationException;
 use Doctrine\ORM\EntityManager;
 use Valitron\Validator;
@@ -24,10 +25,13 @@ class StudentRequestValidator implements RequestValidatorInterface
         $v->rule('equals', 'password', 'confirmPassword');
         $v->rule('length', 'ssn', 14);
         $v->rule('lengthMin', 'phone', 10);
-        $v->rule('in', 'gender', ['male', 'female']);
         $v->rule('alpha', 'name');
-        $v->rule('in', 'userType', ['student', 'professor']);
+        // $v->rule('in', 'userType', ['student', 'professor']);
         $v->rule('date', 'birthdate');
+
+        // gender
+        $v->rule('in', 'gender', ['male', 'female']);
+        $data['gender'] = ($data['gender'] == 'male')? Gender::Male : Gender::Female;
 
         // faculty from id to object
         $v->rule(function($field, $value, $params, $fields) use (&$data){
@@ -50,9 +54,7 @@ class StudentRequestValidator implements RequestValidatorInterface
         // end of rules-------------------
 
         if(! $v->validate()) {
-            throw new \Exception("Student validation exception");
-            throw new ValidationException();
-            // TODO: create custom validation exception
+            throw new ValidationException($v->errors());
         }
 
         return $data;

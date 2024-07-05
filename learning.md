@@ -54,7 +54,7 @@
 - I'm not going to create the department entity, faculty is enough for sake of simplicity 
 - got back to my databases reference for ERD symbols and mapping
 
-### ORM
+## ORM
 - start [here](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/tutorials/getting-started.html)
 - ORM can use attributes or XML tags to specify its metadata
 - all attributes [here](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/reference/attributes-reference.html)
@@ -113,13 +113,21 @@ Neither the server nor the client remember previous communications. For example,
 - it's straightforward; instead of class X initializing its dependencies to start using them, class X received its dependencies in the constructor
 - dependency injection is a way to apply inversion of control in OOP 
 - inversion of control provides separation of logic, code reusability, loose coupling, and easier testing. It leads to a modular code
-- one of inversion of control downsides is Glue code, dependencies depending on other dependencies depending on other dependencies and so on.
+- one of "inversion of control" downsides is Glue code, dependencies depending on other dependencies depending on other dependencies and so on.
+
+### container bindings?
+- we use it to map the interface to the implementation of our choice
+- register a configuration for class X, so when class X is injected we make sure that it is properly configured
 
 ### DI scenario
 - I use request validator classes to validate the upcoming request
 - some request validators use the entity manager which is injected in the constructor and should be handled by the DI container
 - I need to initialize the request validator in the controller, but I'm asked to provide the entity manager
 - I also don't want the controller to access the entity manager, so I use the FACTORY DESIGN PATTERN
+
+### DI autowiring
+- autowiring: the ability of the container to automatically create and inject dependencies
+- 
 
 ## server-side programming (MDN Docs)
 - [start reading](https://developer.mozilla.org/en-US/docs/Learn/Server-side)

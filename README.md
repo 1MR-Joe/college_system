@@ -21,3 +21,27 @@ we need a system for our college, it should provide some functionalities
 ## steps
 1. tackle entities, course management, authentication
 2. 
+
+## notes
+- the student dashboard will be a template(e.x. a header and a sidebar) the mid-section content depends on the route 
+- 
+
+## interfaces ??
+- login form
+
+---
+| interface                 | get                                        | send                |
+|---------------------------|--------------------------------------------|---------------------|
+| student registration form | `/student/form` until handled by frontend  | `/student/register` |   
+| student dashboard         | `/student`                                 | -                   |
+
+---
+
+| interface                   | get                                         | send                  |
+|-----------------------------|---------------------------------------------|-----------------------|
+| professor registration form | `/professor/form` until handled by frontend | `/professor/register` |   
+| professor dashboard         | `/professor`                                | -                     |
+
+---
+
+- admin dashboard

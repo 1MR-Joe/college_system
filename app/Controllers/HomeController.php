@@ -13,6 +13,6 @@ class HomeController
     }
 
     public function index(Request $request, Response $response, $args) {
-        return $this->twig->render($response, 'student/dashboard.twig'); //TODO: add if else to handle both entities
+        return $this->twig->render($response, 'dashboard.twig'); //TODO: add if else to handle both entities
     }
 }
