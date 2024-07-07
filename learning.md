@@ -77,6 +77,11 @@
 - this protocol is used in the application layer of the OSI network model
 - the client opens the connection and makes a request while the server sends the response
 - [difference between webpages, websites, webservers, and search engines](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/Pages_sites_servers_and_search_engines)
+- HTTP is a client-server protocol
+- the client is the one that starts the connection
+- client sends a request and the server replies back with a response
+- both the request and the response has there structure and headers
+- there are representation headers also that are used to specify the format / MIME type and encoding of data
 
 ### HTTP is a stateless protocol
 Neither the server nor the client remember previous communications. For example, relying on HTTP alone, a server can't remember a password you typed or remember your progress on an incomplete transaction. You need an application server (backend) for tasks like that.
@@ -84,18 +89,16 @@ Neither the server nor the client remember previous communications. For example,
 ### HTTP status codes
 ![image](./resources/images/http_status_codes.png)
 
-### HTTP Session
-- HTTP is a client-server protocol
-- the client is the one that starts the connection
-- client sends a request and the server replies back with a response
-- both the request and the response has there structure and headers
-- there are representation headers also that are used to specify the format / MIME type and encoding of data
-
 ### MIME types
 - MIME stands for "Multipurpose Internet Mail Extensions"
 - MIME types are often called "media types" nowadays
 - `text/plain` which is a textual file & `application/octet-stream` a binary file, are the most important MIME types.
 - check more media types [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
+
+### HTTP Session vs. HTTP Cookies
+- [here](https://chatgpt.com/share/55845bc7-8c2b-46cc-ade2-174490102c84)
+- also read this MDN reference [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+
 
 ### Cross Origin Resource Sharing (CORS)
 - CORS is an HTTP header based mechanism that allows the server to indicate extra origins to load resources from other than the server's own domain

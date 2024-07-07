@@ -7,7 +7,7 @@ class ValidationException extends \RuntimeException
 {
 
     public function __construct(
-        array $errors,
+        public readonly array $errors,
         string $message = "Validation Error(s)",
         int $code = 422,
         ?\Throwable $previous = null,

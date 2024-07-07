@@ -17,7 +17,7 @@ class Config
                 'user' => $_ENV['DB_USER'],
                 'password' => $_ENV['DB_PASS'],
             ] ,
-            '' => [] ,
+            'environment' => $_ENV['APP_ENVIRONMENT'] ?? 'production',
         ];
     }
 

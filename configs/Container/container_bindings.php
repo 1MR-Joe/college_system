@@ -12,22 +12,43 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Slim\App;
+use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 
 return [
+    App::class => function(ContainerInterface $container) {
+        AppFactory::setContainer($container);
+        $app = AppFactory::create();
+
+        // register routes
+        $router = require CONFIGS_PATH . '/routes.php';
+        $router($app);
+
+        // register middlewares
+        $middleware = require(CONFIGS_PATH . '/middleware.php');
+        $middleware($app);
+
+        // configuration done
+        return $app;
+    },
     Config::class => fn() => new Config($_ENV),
     EntityManager::class => function (Config $config) {
         $connection = DriverManager::getConnection($config->get('db'));
 
-        $ormSetup = ORMSetup::createAttributeMetadataConfiguration([__DIR__ . '/../app/Entities'], isDevMode: true); //TODO: use config class to abstract this
+        $ormSetup = ORMSetup::createAttributeMetadataConfiguration(
+            paths: [__DIR__ . '/../app/Entities'],
+            isDevMode: ($config->get('environment') === 'development')
+        );
 
         return new EntityManager($connection, $ormSetup);
     },
-    Twig::class => function () {
+    Twig::class => function (Config $config) {
         $twig = Twig::create(
             VIEWS_PATH, [
                 'cache' => STORAGE_PATH . '/cache',
-                'auto_reload' => true, //TODO: config class and abstract this true
+                'auto_reload' => ($config->get('environment') === 'development'),
             ]
         );
 
@@ -38,4 +59,6 @@ return [
     RequestValidatorFactoryInterface::class => fn(ContainerInterface $container) => $container->get(
         RequestvalidatorFactory::class
     ),
+    ResponseFactoryInterface::class => fn(App $app) => $app->getResponseFactory(),
+
 ];

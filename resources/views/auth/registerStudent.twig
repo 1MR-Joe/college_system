@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>{% block title %}Register{% endblock %}</title>
     <style>
+    {% block stylesheets %}
         body {
             display: flex;
             justify-content: center;
@@ -20,6 +21,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 80%;
         }
         input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
             width: 100%;
@@ -27,6 +29,7 @@
             margin: 10px 0;
             border: none;
             border-radius: 5px;
+            display: block;
         }
         input[type="submit"] {
             width: 100%;
@@ -36,35 +39,55 @@
             border-radius: 5px;
             color: white;
             cursor: pointer;
+            margin: 10px auto;
         }
         input[type="submit"]:hover {
             background-color: #666;
         }
+    {% endblock %}
     </style>
 </head>
 <body>
+{% block content %}
 <div class="container">
     <h2>Register</h2>
     <form action="/student/register" method="post">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="number" name="ssn" placeholder="SSN" required>
-        <input type="number" name="phone" placeholder="Phone Number" required>
-        <input type="date" name="birthdate" placeholder="Birthdate" required>
-        <select name="gender" required>
+        <input type="text" name="name" placeholder="Name" value="{{ oldData.name }}" {{ errors.name ? 'is-invalid' : '' }}>
+        <div class="invalid-feedback">{{ errors.name | first }}</div>
+
+        <input type="number" name="ssn" placeholder="SSN" value="{{ oldData.ssn }}" {{ errors.ssn ? 'is-invalid' : '' }}>
+        <div class="invalid-feedback">{{ errors.ssn | first }}</div>
+
+        <input type="number" name="phone" placeholder="Phone Number"  value="{{ oldData.phone }}" {{ errors.phone ? 'is-invalid' : '' }}>
+        <div class="invalid-feedback">{{ errors.phone | first }}</div>
+
+        <input type="date" name="birthdate" placeholder="Birthdate"  value="{{ oldData.birthdate }}" {{ errors.birthdate ? 'is-invalid' : '' }}>
+        <div class="invalid-feedback">{{ errors.birthdate | first }}</div>
+
+        <select name="gender" {{ errors.gender ? 'is-invalid' : '' }}>
             <option value="">Choose Gender</option>
             <option value="female">Female</option>
             <option value="male">Male</option>
         </select>
-        <select name="faculty" required>
+        <div class="invalid-feedback">{{ errors.gender | first }}</div>
+
+        <select name="faculty" {{ errors.faculty ? 'is-invalid' : '' }}>
             <option value="">Choose Faculty</option>
             {% for f in faculties %}
                 <option value="{{ f.id }}">{{ f.name }}</option>
             {% endfor %}
         </select>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <div class="invalid-feedback">{{ errors.faculty | first }}</div>
+
+        <input type="password" name="password" placeholder="Password" {{ errors.password ? 'is-invalid' : '' }}>
+        <div class="invalid-feedback">{{ errors.password | first }}</div>
+
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" {{ errors.confirmPassword ? 'is-invalid' : '' }}>
+        <div class="invalid-feedback">{{ errors.confirmPassword | first }}</div>
+
         <input type="submit" value="Register">
     </form>
 </div>
+{% endblock %}
 </body>
 </html>
