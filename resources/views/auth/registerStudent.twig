@@ -50,8 +50,8 @@
 <body>
 {% block content %}
 <div class="container">
-    <h2>Register</h2>
-    <form action="/student/register" method="post">
+    <h2>Register Student</h2>
+    <form action="/student/create" method="post">
         <input type="text" name="name" placeholder="Name" value="{{ oldData.name }}" {{ errors.name ? 'is-invalid' : '' }}>
         <div class="invalid-feedback">{{ errors.name | first }}</div>
 

@@ -100,12 +100,12 @@ Neither the server nor the client remember previous communications. For example,
 - also read this MDN reference [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 
 
-### Cross Origin Resource Sharing (CORS)
-- CORS is an HTTP header based mechanism that allows the server to indicate extra origins to load resources from other than the server's own domain
+### Cross-Origin Resource Sharing (CORS)
+- CORS is an HTTP header-based mechanism that allows the server to indicate extra origins to load resources from other than the server's own domain
 - Example:
   - if I'm in domain-A and sent a request for a resource from domain-B
-  - if domain-B allows domain-A to load resources from it, domain-A will be abel to do so
-  - on the other hand: if domain-B doesn't allow 
+  - if domain-B allows domain-A to load resources from it, domain-A will be abel to do so.
+  - on the other hand: if domain-B doesn't allow CORs or domain-B does NOT allow domain-A to load its resources, domain-A won't be able to do so.
 ##### pre-flight mechanism: it's a mechanism used to check if the actual request is safe to send or not
   - it's an HTTP OPTIONS request that's sent by the browser, the server responds whether the actual request is safe to send or not
   - if the actual request is safe to send, then the browser sends it

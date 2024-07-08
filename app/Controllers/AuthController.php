@@ -8,6 +8,7 @@ use App\Entities\Student;
 use App\Enums\Gender;
 use App\RequestValidators\RequestValidatorFactory;
 use App\RequestValidators\StudentRequestValidator;
+use App\Services\StudentService;
 use Doctrine\ORM\EntityManager;
 use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -19,7 +20,7 @@ class AuthController
         private readonly Twig $twig,
         private readonly EntityManager $entityManager,
         private readonly RequestValidatorFactory $requestValidatorFactory,
-        private readonly FacultyController $facultyController
+        private readonly FacultyController $facultyController,
     ){
     }
 

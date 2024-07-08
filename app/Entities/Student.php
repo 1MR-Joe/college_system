@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace App\Entities;
 
 use App\Enums\Gender;
-use Cassandra\Date;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
@@ -140,33 +138,7 @@ class Student
         $this->password = $password;
     }
 
-    public function completeCredentials() {
-        // admission year and gpa handling
-        $today = new \DateTime('now');
-        $this->admissionYear = (int) $today->format('Y');
-        $this->gpa = 4;
 
-        // id handling
-        // Id = admissionYear + facultyId + serialNumber
-        $facultyId = strval($this->faculty->getId());
-        if(strlen($facultyId) == 1) {
-            $facultyId = '0'.$facultyId;
-        }
-
-        $serialNumber = strval($this->faculty->getSerialNumber($this->admissionYear));
-        switch(strlen($serialNumber)){
-            case 1:
-                $serialNumber = '00'.$serialNumber;
-                break;
-            case 2:
-                $serialNumber = '0'.$serialNumber;
-                break;
-        }
-
-        $this->id = $today->format('y') . $facultyId . $serialNumber;
-        $this->faculty->updateSerialNumber($this->admissionYear);
-
-    }
     public function __construct(){
     }
 }

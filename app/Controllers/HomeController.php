@@ -13,9 +13,6 @@ class HomeController
     }
 
     public function index(Request $request, Response $response, $args) {
-        // $_SESSION['counter'] = ($_SESSION['counter'] ?? 0) + 1;
-
-        echo $_SESSION['counter']; echo "<br>";
-        return $this->twig->render($response, 'dashboard.twig'); //TODO: add if else to handle both entities
+        return $this->twig->render($response, 'dashboard.twig');
     }
 }

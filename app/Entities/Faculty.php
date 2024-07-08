@@ -61,39 +61,33 @@ class Faculty
         return $this->facultyYear;
     }
 
+    public function initializeFacultyYearArray(): void {
+        $this->facultyYear = [];
+    }
+
+    public function serialNumberExists(int $year): bool {
+        return array_key_exists(strval($year), $this->facultyYear);
+    }
     public function createSerialNumber(int $year): Faculty {
         $this->facultyYear[strval($year)] = 1;
         return $this;
     }
-    public function updateSerialNumber(int $year): Faculty {
-        $this->facultyYear[strval($year)] += 1;
-        return $this;
+    public function incrementSerialNumber(int $year): Faculty {
+        if($this->serialNumberExists($year)) {
+            $this->facultyYear[strval($year)] += 1;
+            return $this;
+
+        } else {
+            return $this->createSerialNumber($year);
+        }
     }
 
-//    public function getSerialNumber(int $year): int {
-//
-//        try{
-//            return $this->facultyYear[strval($year)];
-//        } catch(\Throwable $e) {
-//            $this->createSerialNumber($year);
-//            return $this->facultyYear[strval($year)];
-//        }
-//    }
-
     public function getSerialNumber(int $year): int {
-        if(! array_key_exists(strval($year), $this->facultyYear)) {
+        if(! $this->serialNumberExists($year)) {
             $this->createSerialNumber($year);
         }
 
         return $this->facultyYear[strval($year)];
     }
 
-    public function __construct(array $data)
-    {
-        // TODO: remove this constructor
-        $this->id = (int) $data['id'];
-        $this->name = $data['name'];
-        $this->code = $data['code'];
-        $this->facultyYear = [];
-    }
 }

@@ -2,6 +2,8 @@
 declare(strict_types=1);
 ini_set('display_errors', true);
 
+use Doctrine\ORM\EntityManager;
+use Psr\Container\ContainerInterface;
 use Slim\App;
 
 // path constants
@@ -18,6 +20,8 @@ $dotenv->load();
 // I was using the example in slim documentation
 // then I moved container bindings to its own file
 // then moved the whole container definition in another file
+
+/** @var ContainerInterface $container */
 $container = require CONFIGS_PATH . '/Container/container.php';
 
 // create app
@@ -25,3 +29,17 @@ $container = require CONFIGS_PATH . '/Container/container.php';
 $app = $container->get(App::class);
 
 $app->run();
+
+
+// TODO: test the faculty service
+
+/** @var EntityManager $em */
+$em = $container->get(EntityManager::class);
+
+$facultyService = new \App\Services\FacultyService($em);
+$id = 1;
+$faculty = $facultyService->fetchById($id);
+
+
+// TODO: modify student-faculty connection
+// TODO: modify the faculty year column name

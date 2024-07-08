@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Register Faculty{% endblock %}</title>
+    <style>
+        {% block stylesheets %}
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2e2e2e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 80%;
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            display: block;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #555;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            margin: 10px auto;
+        }
+        input[type="submit"]:hover {
+            background-color: #666;
+        }
+        {% endblock %}
+    </style>
+</head>
+<body>
+{% block content %}
+    <div class="container">
+        <h2>Register Faculty</h2>
+        <form action="/faculty/create" method="post">
+            <input type="text" name="name" placeholder="Faculty Name" value="{{ oldData.name }}" {{ errors.name ? 'is-invalid' : '' }}>
+            <div class="invalid-feedback">{{ errors.name | first }}</div>
+
+            <input type="text" name="code" placeholder="Faculty Code" value="{{ oldData.code }}" {{ errors.code ? 'is-invalid' : '' }}>
+            <div class="invalid-feedback">{{ errors.code | first }}</div>
+
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}
+</body>
+</html>
