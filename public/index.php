@@ -36,10 +36,4 @@ $app->run();
 /** @var EntityManager $em */
 $em = $container->get(EntityManager::class);
 
-$facultyService = new \App\Services\FacultyService($em);
-$id = 1;
-$faculty = $facultyService->fetchById($id);
 
-
-// TODO: modify student-faculty connection
-// TODO: modify the faculty year column name

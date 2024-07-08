@@ -20,7 +20,7 @@ class Faculty
     #[Column]
     private string $name;
 
-    #[Column(type: Types::JSON)]
+    #[Column(name: 'faculty_year',type: Types::JSON)]
     // int year => int serialNumber
     private array $facultyYear;
 
