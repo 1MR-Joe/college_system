@@ -14,10 +14,8 @@ class FacultyService
     }
 
     public function create(array $data): Faculty {
-        // TODO: test this function
         $faculty = new Faculty();
 
-        $faculty->setId((int) $data['id']);
         $faculty->setName($data['name']);
         $faculty->setCode($data['code']);
         $faculty->initializeFacultyYearArray();
@@ -30,7 +28,7 @@ class FacultyService
         return $faculty;
     }
 
-    public function fetchById(int $id) {
+    public function fetchById(int $id): Faculty|null {
         return $this->entityManager->getRepository(Faculty::class)->findOneBy(['id' => $id]);
     }
 
@@ -44,8 +42,17 @@ class FacultyService
     }
 
     public function fetchAll() {
-        // TODO: test this function
         return $this->entityManager->getRepository(Faculty::class)->findAll();
+    }
+
+    public function fetchFacultyNames(): array
+    {
+        return $this->entityManager
+            ->getRepository(Faculty::class)
+            ->createQueryBuilder('f')
+            ->select('f.id', 'f.name')
+            ->getQuery()
+            ->getArrayResult();
     }
 
     public function updateName(Faculty $faculty, string $newName) {
@@ -76,7 +83,6 @@ class FacultyService
     }
 
     public function delete(int $id) {
-        // TODO: test this function
         $student = $this->entityManager->find(Faculty::class, $id);
         // TODO: the find method can throw an exception, shouldn't that be handled ??
 

@@ -43,7 +43,7 @@
 - I'll also use the help of this great php [playlist](https://www.youtube.com/playlist?list=PLr3d3QYzkw2xabQRUpcZ_IBk9W50M9pe-)
 - also the help of the MDN documents
 
-### Entities (PDO, DBAL, Doctrine ORM)
+## Entities (PDO, DBAL, Doctrine ORM)
 - I need to connect to the DB
 - **added .env file and downloaded the `vlucas/phpdotenv` package**
 - PHP Data Object (PDO) is a "data access layer"

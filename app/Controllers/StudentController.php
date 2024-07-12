@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\RequestValidators\RequestValidatorFactory;
-use App\RequestValidators\StudentRequestValidator;
+use App\RequestValidators\RegisterStudentRequestValidator;
+use App\Services\FacultyService;
 use App\Services\StudentService;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -16,7 +17,7 @@ class StudentController
         private readonly Twig $twig,
         private readonly RequestValidatorFactory $requestValidatorFactory,
         private readonly StudentService $studentService,
-        private readonly FacultyController $facultyController
+        private readonly FacultyService $facultyService,
     ){
     }
 
@@ -24,14 +25,14 @@ class StudentController
         return $this->twig->render(
             $response,
             '/auth/registerStudent.twig',
-            ['faculties' => $this->facultyController->getFacultyNames()]
+            ['faculties' => $this->facultyService->fetchFacultyNames()]
         );
     }
 
     public function create(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
 
-        $validator = $this->requestValidatorFactory->make(StudentRequestValidator::class);
+        $validator = $this->requestValidatorFactory->make(RegisterStudentRequestValidator::class);
         $data = $validator->validate($data);
 
         $this->studentService->create($data);

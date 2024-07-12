@@ -7,7 +7,7 @@ use App\Entities\Faculty;
 use App\Entities\Student;
 use App\Enums\Gender;
 use App\RequestValidators\RequestValidatorFactory;
-use App\RequestValidators\StudentRequestValidator;
+use App\RequestValidators\RegisterStudentRequestValidator;
 use App\Services\StudentService;
 use Doctrine\ORM\EntityManager;
 use Slim\Views\Twig;
@@ -47,7 +47,7 @@ class AuthController
 
         echo 'validating student'; echo "<br>";
 
-        $validator = $this->requestValidatorFactory->make(StudentRequestValidator::class);
+        $validator = $this->requestValidatorFactory->make(RegisterStudentRequestValidator::class);
         $validator->validate($data);
         //TODO: validate data
         // replace faculty id with the true instance

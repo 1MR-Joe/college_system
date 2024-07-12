@@ -26,6 +26,11 @@ we need a system for our college, it should provide some functionalities
 - the student dashboard will be a template(e.x. a header and a sidebar) the mid-section content depends on the route 
 - 
 
+## assumptions
+- until an admin can register professor and student, the register feature will be public
+- will use auto-incremented semester_course_code until custom code becomes useful
+
+
 ## interfaces ??
 - login form
 
@@ -45,3 +50,12 @@ we need a system for our college, it should provide some functionalities
 ---
 
 - admin dashboard
+
+---
+---
+
+## next project goals
+1. learn and use laravel
+2. use Jira (project ticketing software)
+3. more branching and git utilization 
+4. wait for me. 😉
