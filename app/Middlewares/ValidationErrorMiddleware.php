@@ -27,5 +27,9 @@ class ValidationErrorMiddleware implements MiddlewareInterface
         }
 
         return $handler->handle($request);
+        //TODO: upgrade this middleware
+        // make this middleware handle any exception after a form was submitted
+        // not just validation exception
+        // so it saves the data in case any exception happens
     }
 }

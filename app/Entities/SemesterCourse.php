@@ -29,7 +29,7 @@ class SemesterCourse
 
     #[Column(type: Types::STRING)]
     #[ManyToOne(targetEntity: Professor::class)]
-    #[JoinColumn(name: 'professor', referencedColumnName: 'ssn', onDelete: 'SET NULL')]
+    #[JoinColumn(onDelete: 'SET NULL')]
     private Professor $professor;
 
     public function getId(): string

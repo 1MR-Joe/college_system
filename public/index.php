@@ -33,8 +33,8 @@ $app->run();
 
 /** @var EntityManager $em */
 $em = $container->get(EntityManager::class);
-$service = new \App\Services\FacultyService($em);
+$service = new \App\Services\ProfessorService($em);
 
-// TODO: professor controller, service, request validator
+
 // TODO: test professor logic
 // TODO: define entry points and hierarchy

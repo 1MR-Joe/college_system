@@ -32,7 +32,7 @@ class StudentService
         return $student;
     }
 
-    public function fetchById(string $id) {
+    public function fetchById(string $id): Student|null {
         return $this->entityManager->getRepository(Student::class)->findOneBy(['id' => $id]);
     }
 
