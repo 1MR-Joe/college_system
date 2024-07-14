@@ -33,8 +33,6 @@ $app->run();
 
 /** @var EntityManager $em */
 $em = $container->get(EntityManager::class);
-$service = new \App\Services\ProfessorService($em);
+$service = new \App\Services\StudentService($em, new \App\Services\FacultyService($em));
 
-
-// TODO: test professor logic
 // TODO: define entry points and hierarchy

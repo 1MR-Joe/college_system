@@ -24,10 +24,16 @@ class RegisterStudentRequestValidator implements RequestValidatorInterface
         // add rules
         $v->rule(
             'required',
-            array_keys($data) // TODO: add the true fields
+            [
+                'firstName', 'lastName', 'ssn',
+                'email' ,'phone', 'birthdate', 'gender',
+                'faculty', 'password', 'confirmPassword'
+            ]
         );
-        $v->rule('alpha', 'name');
+        $v->rule('optional', 'middleName');
+        $v->rule('alpha', ['firstName', 'middleName', 'lastName']);
         $v->rule('numeric', ['phone', 'ssn']);
+        $v->rule('email', 'email');
         $v->rule('length', 'ssn', 14);
         $v->rule('lengthMin', 'phone', 10);
         $v->rule('date', 'birthdate');

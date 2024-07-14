@@ -24,7 +24,7 @@ class StudentController
     public function form(Request $request, Response $response): Response {
         return $this->twig->render(
             $response,
-            '/auth/registerStudent.twig',
+            '/student/registerStudent.twig',
             ['faculties' => $this->facultyService->fetchFacultyNames()]
         );
     }

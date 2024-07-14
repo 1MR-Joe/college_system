@@ -15,14 +15,20 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table('professors')]
 class Professor
 {
-    #[Id, Column, GeneratedValue]
+    #[Id, Column(options: ['unsigned'=> true]), GeneratedValue]
     private int $id;
     #[Column(unique: true)]
     private string $ssn;
-    #[Column]
-    private string $name;
+    #[Column(name: 'first_name')]
+    private string $firstName;
+    #[Column(name: "middle_name", nullable: true)]
+    private ?string $middleName;
+    #[Column(name: 'last_name')]
+    private string $lastName;
     #[Column]
     private string $phone;
+    #[Column]
+    private string $email;
     #[Column]
     private Gender $gender;
     #[Column]
@@ -32,6 +38,11 @@ class Professor
     #[ManyToOne(targetEntity: Faculty::class)]
     #[JoinColumn(onDelete: 'SET NULL')]
     private Faculty $faculty;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function getSsn(): string
     {
@@ -43,14 +54,37 @@ class Professor
         $this->ssn = $ssn;
     }
 
-    public function getName(): string
+    public function getFirstName(): string
     {
-        return $this->name;
+        return $this->firstName;
     }
 
-    public function setName(string $name): void
+    public function setFirstName(string $firstName): Professor
     {
-        $this->name = $name;
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    public function getMiddleName(): ?string
+    {
+        return $this->middleName;
+    }
+
+    public function setMiddleName(?string $middleName): Professor
+    {
+        $this->middleName = $middleName;
+        return $this;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): Professor
+    {
+        $this->lastName = $lastName;
+        return $this;
     }
 
     public function getPhone(): string
@@ -61,6 +95,17 @@ class Professor
     public function setPhone(string $phone): void
     {
         $this->phone = $phone;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): Professor
+    {
+        $this->email = $email;
+        return $this;
     }
 
     public function getGender(): Gender

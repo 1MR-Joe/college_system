@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entities\Student;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 
 class StudentService
@@ -16,12 +17,19 @@ class StudentService
 
     public function create(array $data): Student {
         $student = new Student();
-        $student->setName($data['name']);
+        $student->setFirstName($data['firstName']);
+
+        if($data['middleName']) {//TODO: better way ??
+            $student->setMiddleName($data['middleName']);
+        }
+
+        $student->setLastName($data['lastName']);
         $student->setSsn($data['ssn']);
+        $student->setEmail($data['email']);
         $student->setPhone($data['phone']);
         $student->setGender($data['gender']);
         $student->setFaculty($data['faculty']);
-        $student->setBirthdate(new \DateTime($data['birthdate']));
+        $student->setBirthdate(new DateTime($data['birthdate']));
         $student->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]));
 
         $this->completeCredentials($student);
@@ -36,22 +44,38 @@ class StudentService
         return $this->entityManager->getRepository(Student::class)->findOneBy(['id' => $id]);
     }
 
-    public function fetchByName(string $name): array {
-        return $this->entityManager
+    public function fetchByName(string $firstName = '', string $middleName = '', string $lastName = ''): array {
+        $query = $this->entityManager
             ->getRepository(Student::class)
             ->createQueryBuilder('s')
-            ->select()
-            ->where('s.name LIKE :name')
-            ->setParameter(':name', $name)
-            ->getQuery()
-            ->getArrayResult();
+            ->select();
+
+        if($firstName) {
+            $query
+                ->where('s.firstName LIKE :firstName')
+                ->setParameter('firstName', $firstName);
+        }
+
+        if($middleName) {
+            $query
+                ->andWhere('s.middleName LIKE :middleName')
+                ->setParameter('middleName', $middleName);
+        }
+
+        if($lastName) {
+            $query
+                ->andWhere('s.lastName LIKE :lastName')
+                ->setParameter('lastName', $lastName);
+        }
+
+        return $query->getQuery()->getArrayResult();
     }
 
-    public function fetchAll() {
+    public function fetchAll(): array {
         return $this->entityManager->getRepository(Student::class)->findAll();
     }
 
-    public function updatePhone(Student $student, string $newPhoneNumber) {
+    public function updatePhone(Student $student, string $newPhoneNumber): Student {
         //TODO: when scaling this feature, add request validation
 
         $student->setPhone($newPhoneNumber);
@@ -61,7 +85,7 @@ class StudentService
         return $student;
     }
 
-    public function delete(string $id) {
+    public function delete(string $id): void {
         $student = $this->entityManager->find(Student::class, $id);
         // TODO: the find method can throw an exception, shouldn't that be handled ??
 
@@ -69,14 +93,14 @@ class StudentService
         $this->entityManager->flush();
     }
 
-    public function completeCredentials(Student $student) {
+    public function completeCredentials(Student $student): Student {
         // admission year and gpa handling
-        $today = new \DateTime('now');
+        $today = new DateTime('now');
         $student->setAdmissionYear((int) $today->format('Y'));
         $student->setGpa(4);
 
         // id handling
-        // Id = admissionYear + facultyId + serialNumber
+        // id = admissionYear + facultyId + serialNumber
         $facultyId = strval($student->getFaculty()->getId());
         if(strlen($facultyId) == 1) {
             $facultyId = '0'.$facultyId;
@@ -94,5 +118,7 @@ class StudentService
 
         $student->setId($today->format('y') . $facultyId . $serialNumber);
         $this->facultyService->incrementSerialNumber($student->getFaculty(), $student->getAdmissionYear());
+
+        return $student;
     }
 }

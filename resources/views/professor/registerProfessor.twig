@@ -52,11 +52,20 @@
     <div class="container">
         <h2>Register Professor</h2>
         <form action="/professor/create" method="post">
-            <input type="text" name="name" placeholder="Name" value="{{ oldData.name }}" {{ errors.name ? 'is-invalid' : '' }}>
-            <div class="invalid-feedback">{{ errors.name | first }}</div>
+            <input type="text" name="firstName" placeholder="First Name" value="{{ oldData.firstName }}" {{ errors.firstName ? 'is-invalid' : '' }}>
+            <div class="invalid-feedback">{{ errors.firstName | first }}</div>
+
+            <input type="text" name="middleName" placeholder="Middle Name (optional)" value="{{ oldData.middleName }}" {{ errors.middleName ? 'is-invalid' : '' }}>
+            <div class="invalid-feedback">{{ errors.middleName | first }}</div>
+
+            <input type="text" name="lastName" placeholder="Last Name" value="{{ oldData.lastName }}" {{ errors.lastName ? 'is-invalid' : '' }}>
+            <div class="invalid-feedback">{{ errors.lastName | first }}</div>
 
             <input type="number" name="ssn" placeholder="SSN" value="{{ oldData.ssn }}" {{ errors.ssn ? 'is-invalid' : '' }}>
             <div class="invalid-feedback">{{ errors.ssn | first }}</div>
+
+            <input type="email" name="email" placeholder="Email" value="{{ oldData.email }}" {{ errors.email ? 'is-invalid' : '' }}>
+            <div class="invalid-feedback">{{ errors.email | first }}</div>
 
             <input type="number" name="phone" placeholder="Phone Number"  value="{{ oldData.phone }}" {{ errors.phone ? 'is-invalid' : '' }}>
             <div class="invalid-feedback">{{ errors.phone | first }}</div>

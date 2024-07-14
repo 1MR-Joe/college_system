@@ -22,12 +22,15 @@ class RegisterProfessorRequestValidator implements RequestValidatorInterface
         $v->rule(
             'required',
             [
-                'name','ssn', 'phone', 'gender',
-                'faculty', 'password', 'confirmPassword',
+                'firstName', 'lastName', 'ssn', 'email',
+                'phone', 'gender', 'faculty', 'password',
+                'confirmPassword',
             ]
         );
-        $v->rule('alpha', 'name');
+        $v->rule('optional', 'middleName');
+        $v->rule('alpha', ['firstName', 'middleName', 'lastName']);
         $v->rule('numeric', ['phone', 'ssn']);
+        $v->rule('email', 'email');
         $v->rule('length', 'ssn', 14);
         $v->rule('lengthMin', 'phone', 10);
         $v->rule('equals', 'password', 'confirmPassword');
