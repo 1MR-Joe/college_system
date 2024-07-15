@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Entities\Faculty;
+use App\Entities\College;
 use App\Entities\Student;
 use App\Enums\Gender;
 use App\RequestValidators\RequestValidatorFactory;
@@ -17,10 +17,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class AuthController
 {
     public function __construct(
-        private readonly Twig $twig,
-        private readonly EntityManager $entityManager,
+        private readonly Twig                    $twig,
+        private readonly EntityManager           $entityManager,
         private readonly RequestValidatorFactory $requestValidatorFactory,
-        private readonly FacultyController $facultyController,
+        private readonly CollegeController       $facultyController,
     ){
     }
 
@@ -50,16 +50,16 @@ class AuthController
         $validator = $this->requestValidatorFactory->make(RegisterStudentRequestValidator::class);
         $validator->validate($data);
         //TODO: validate data
-        // replace faculty id with the true instance
+        // replace college id with the true instance
         // plug in the array
-        // remove the automatic faculty setting part
+        // remove the automatic college setting part
 
         $student = new Student();
         $student->setName($data['name']);
         $student->setSsn($data['ssn']);
         $student->setPhone($data['phone']);
         $student->setGender($data['gender']);
-        $student->setFaculty($data['faculty']);
+        $student->setCollege($data['college']);
         $student->setBirthdate(new \DateTime($data['birthdate']));
         $student->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]));
 

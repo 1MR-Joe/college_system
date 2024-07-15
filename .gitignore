@@ -1,7 +1,8 @@
+# files
+/.env
+
 # directories
 /vendor/
 /.idea
 /storage/*
 
-# files
-.env

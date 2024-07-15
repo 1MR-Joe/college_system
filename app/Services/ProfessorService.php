@@ -29,7 +29,7 @@ class ProfessorService
         $prof->setEmail($data['email']);
         $prof->setPhone($data['phone']);
         $prof->setGender($data['gender']);
-        $prof->setFaculty($data['faculty']);
+        $prof->setCollege($data['college']);
         $prof->setIsAdmin(false);
         $prof->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]));
 

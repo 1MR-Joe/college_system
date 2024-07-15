@@ -35,9 +35,9 @@ class Professor
     private string $password;
     #[Column]
     private bool $isAdmin;
-    #[ManyToOne(targetEntity: Faculty::class)]
+    #[ManyToOne(targetEntity: College::class)]
     #[JoinColumn(onDelete: 'SET NULL')]
-    private Faculty $faculty;
+    private College $college;
 
     public function getId(): int
     {
@@ -118,14 +118,14 @@ class Professor
         $this->gender = $gender;
     }
 
-    public function getFaculty(): Faculty
+    public function getCollege(): College
     {
-        return $this->faculty;
+        return $this->college;
     }
 
-    public function setFaculty(Faculty $faculty): void
+    public function setCollege(College $college): void
     {
-        $this->faculty = $faculty;
+        $this->college = $college;
     }
 
     public function getPassword(): string

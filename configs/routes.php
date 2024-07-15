@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AuthController;
-use App\Controllers\FacultyController;
+use App\Controllers\CollegeController;
 use App\Controllers\ProfessorController;
 use App\Controllers\StudentController;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -26,6 +26,6 @@ return function(App $app) {
     $app->get('/professor/form', [ProfessorController::class, 'form']);
     $app->post('/professor/create', [ProfessorController::class, 'create']);
 
-    $app->get('/faculty/form', [FacultyController::class, 'form']);
-    $app->post('/faculty/create', [FacultyController::class, 'create']);
+    $app->get('/college/form', [CollegeController::class, 'form']);
+    $app->post('/college/create', [CollegeController::class, 'create']);
 };

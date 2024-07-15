@@ -97,7 +97,7 @@ class __TwigTemplate_aed8375a30438f689bd515713d15274b extends Template
             <option value=\"female\">Female</option>
             <option value=\"male\">Male</option>
         </select>
-        <select name=\"faculty\" required>
+        <select name=\"college\" required>
             <option value=\"\">Choose Faculty</option>
             ";
         // line 65

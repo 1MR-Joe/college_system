@@ -33,6 +33,6 @@ $app->run();
 
 /** @var EntityManager $em */
 $em = $container->get(EntityManager::class);
-$service = new \App\Services\StudentService($em, new \App\Services\FacultyService($em));
+$service = new \App\Services\StudentService($em, new \App\Services\CollegeService($em));
 
 // TODO: define entry points and hierarchy

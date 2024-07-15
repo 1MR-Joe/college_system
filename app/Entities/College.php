@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
-#[Entity, Table('faculty')]
-class Faculty
+#[Entity, Table('college')]
+class College
 {
     #[Id, GeneratedValue, Column]
     private int $id;
@@ -20,16 +20,16 @@ class Faculty
     #[Column]
     private string $name;
 
-    #[Column(name: 'faculty_year',type: Types::JSON)]
+    #[Column(name: 'college_year',type: Types::JSON)]
     // int year => int serialNumber
-    private array $facultyYear;
+    private array $collegeYear;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id): Faculty
+    public function setId(int $id): College
     {
         $this->id = $id;
         return $this;
@@ -40,7 +40,7 @@ class Faculty
         return $this->code;
     }
 
-    public function setCode(string $code): Faculty
+    public function setCode(string $code): College
     {
         $this->code = $code;
         return $this;
@@ -51,30 +51,30 @@ class Faculty
         return $this->name;
     }
 
-    public function setName(string $name): Faculty
+    public function setName(string $name): College
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getFacultyYears(): array {
-        return $this->facultyYear;
+    public function getCollegeYears(): array {
+        return $this->collegeYear;
     }
 
-    public function initializeFacultyYearArray(): void {
-        $this->facultyYear = [];
+    public function initializeCollegeYearArray(): void {
+        $this->collegeYear = [];
     }
 
     public function serialNumberExists(int $year): bool {
-        return array_key_exists(strval($year), $this->facultyYear);
+        return array_key_exists(strval($year), $this->collegeYear);
     }
-    public function createSerialNumber(int $year): Faculty {
-        $this->facultyYear[strval($year)] = 1;
+    public function createSerialNumber(int $year): College {
+        $this->collegeYear[strval($year)] = 1;
         return $this;
     }
-    public function incrementSerialNumber(int $year): Faculty {
+    public function incrementSerialNumber(int $year): College {
         if($this->serialNumberExists($year)) {
-            $this->facultyYear[strval($year)] += 1;
+            $this->collegeYear[strval($year)] += 1;
             return $this;
 
         } else {
@@ -87,7 +87,7 @@ class Faculty
             $this->createSerialNumber($year);
         }
 
-        return $this->facultyYear[strval($year)];
+        return $this->collegeYear[strval($year)];
     }
 
 }

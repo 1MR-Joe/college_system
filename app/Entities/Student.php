@@ -39,9 +39,9 @@ class Student
     private int $admissionYear;
     #[Column]
     private string $password;
-    #[ManyToOne(targetEntity: Faculty::class)]
-    #[JoinColumn(name: 'faculty', referencedColumnName: 'id', onDelete: 'SET NULL')]
-    private Faculty $faculty;
+    #[ManyToOne(targetEntity: College::class)]
+    #[JoinColumn(name: 'college', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private College $college;
 
     //TODO: fluent setters please
     public function getId(): string
@@ -158,14 +158,14 @@ class Student
         $this->admissionYear = $admissionYear;
     }
 
-    public function getFaculty(): Faculty
+    public function getCollege(): College
     {
-        return $this->faculty;
+        return $this->college;
     }
 
-    public function setFaculty(Faculty $faculty): void
+    public function setCollege(College $college): void
     {
-        $this->faculty = $faculty;
+        $this->college = $college;
     }
 
     public function getPassword(): string

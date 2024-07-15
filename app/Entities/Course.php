@@ -30,8 +30,8 @@ class Course
     #[OneToMany(targetEntity: Course::class, mappedBy: 'code')]
     #[JoinColumn(name: 'pre_requests')]
     private Collection $preRequests;
-    #[OneToMany(targetEntity: Faculty::class, mappedBy: 'id')]
-    private Collection $offeringFaculties;
+    #[OneToMany(targetEntity: College::class, mappedBy: 'id')]
+    private Collection $offeringColleges;
     public function __construct() {
         $this->preRequests = new ArrayCollection();
     }
@@ -104,14 +104,14 @@ class Course
         return $this;
     }
 
-    public function getOfferingFaculties(): Collection
+    public function getOfferingColleges(): Collection
     {
-        return $this->offeringFaculties;
+        return $this->offeringColleges;
     }
 
-    public function addOfferingFaculty(Faculty $offeringFaculty): Course
+    public function addOfferingColleges(College $college): Course
     {
-        $this->offeringFaculties->add($offeringFaculty);
+        $this->offeringColleges->add($college);
 
         return $this;
     }

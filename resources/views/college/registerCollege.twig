@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Register Faculty{% endblock %}</title>
+    <title>{% block title %}Register College{% endblock %}</title>
     <style>
         {% block stylesheets %}
         body {
@@ -50,12 +50,12 @@
 <body>
 {% block content %}
     <div class="container">
-        <h2>Register Faculty</h2>
-        <form action="/faculty/create" method="post">
-            <input type="text" name="name" placeholder="Faculty Name" value="{{ oldData.name }}" {{ errors.name ? 'is-invalid' : '' }}>
+        <h2>Register College</h2>
+        <form action="/college/create" method="post">
+            <input type="text" name="name" placeholder="College Name" value="{{ oldData.name }}" {{ errors.name ? 'is-invalid' : '' }}>
             <div class="invalid-feedback">{{ errors.name | first }}</div>
 
-            <input type="text" name="code" placeholder="Faculty Code" value="{{ oldData.code }}" {{ errors.code ? 'is-invalid' : '' }}>
+            <input type="text" name="code" placeholder="College Code" value="{{ oldData.code }}" {{ errors.code ? 'is-invalid' : '' }}>
             <div class="invalid-feedback">{{ errors.code | first }}</div>
 
             <input type="submit">

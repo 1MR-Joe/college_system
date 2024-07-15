@@ -7,7 +7,7 @@ use App\Contracts\RequestValidatorInterface;
 use App\Exceptions\ValidationException;
 use Valitron\Validator;
 
-class RegisterFacultyRequestValidator implements RequestValidatorInterface
+class RegisterCollegeRequestValidator implements RequestValidatorInterface
 {
 
     public function validate(array $data): array

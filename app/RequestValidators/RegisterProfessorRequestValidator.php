@@ -6,12 +6,12 @@ namespace App\RequestValidators;
 use App\Contracts\RequestValidatorInterface;
 use App\Enums\Gender;
 use App\Exceptions\ValidationException;
-use App\Services\FacultyService;
+use App\Services\CollegeService;
 use Valitron\Validator;
 
 class RegisterProfessorRequestValidator implements RequestValidatorInterface
 {
-    public function __construct(private readonly FacultyService $facultyService)
+    public function __construct(private readonly CollegeService $collegeService)
     {
     }
 
@@ -23,7 +23,7 @@ class RegisterProfessorRequestValidator implements RequestValidatorInterface
             'required',
             [
                 'firstName', 'lastName', 'ssn', 'email',
-                'phone', 'gender', 'faculty', 'password',
+                'phone', 'gender', 'college', 'password',
                 'confirmPassword',
             ]
         );
@@ -40,22 +40,22 @@ class RegisterProfessorRequestValidator implements RequestValidatorInterface
         $v->rule('in', 'gender', ['male', 'female']);
         $data['gender'] = ($data['gender'] == 'male')? Gender::Male : Gender::Female;
 
-        // faculty from id to object
+        // college from id to object
         $v->rule(function($field, $value, $params, $fields) use (&$data){
             $id = (int) $value;
             if(! $id) {
                 return false;
             }
 
-            $faculty = $this->facultyService->fetchById($id);
+            $college = $this->collegeService->fetchById($id);
 
-            if($faculty === null) {
+            if($college === null) {
                 return false;
             }
 
-            $data['faculty'] = $faculty;
+            $data['college'] = $college;
             return true;
-        }, 'faculty')->message('Faculty not found');
+        }, 'college')->message('College not found');
 
         // end of rules-------------------
 

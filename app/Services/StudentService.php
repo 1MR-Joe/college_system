@@ -11,7 +11,7 @@ class StudentService
 {
     public function __construct(
         private readonly EntityManager $entityManager,
-        private readonly FacultyService $facultyService
+        private readonly CollegeService $collegeService
     ){
     }
 
@@ -28,7 +28,7 @@ class StudentService
         $student->setEmail($data['email']);
         $student->setPhone($data['phone']);
         $student->setGender($data['gender']);
-        $student->setFaculty($data['faculty']);
+        $student->setCollege($data['college']);
         $student->setBirthdate(new DateTime($data['birthdate']));
         $student->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]));
 
@@ -100,13 +100,13 @@ class StudentService
         $student->setGpa(4);
 
         // id handling
-        // id = admissionYear + facultyId + serialNumber
-        $facultyId = strval($student->getFaculty()->getId());
-        if(strlen($facultyId) == 1) {
-            $facultyId = '0'.$facultyId;
+        // id = admissionYear + collegeId + serialNumber
+        $collegeId = strval($student->getCollege()->getId());
+        if(strlen($collegeId) == 1) {
+            $collegeId = '0'.$collegeId;
         }
 
-        $serialNumber = strval($student->getFaculty()->getSerialNumber($student->getAdmissionYear()));
+        $serialNumber = strval($student->getCollege()->getSerialNumber($student->getAdmissionYear()));
         switch(strlen($serialNumber)){
             case 1:
                 $serialNumber = '00'.$serialNumber;
@@ -116,8 +116,8 @@ class StudentService
                 break;
         }
 
-        $student->setId($today->format('y') . $facultyId . $serialNumber);
-        $this->facultyService->incrementSerialNumber($student->getFaculty(), $student->getAdmissionYear());
+        $student->setId($today->format('y') . $collegeId . $serialNumber);
+        $this->collegeService->incrementSerialNumber($student->getCollege(), $student->getAdmissionYear());
 
         return $student;
     }

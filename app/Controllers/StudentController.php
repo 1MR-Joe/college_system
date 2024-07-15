@@ -5,7 +5,7 @@ namespace App\Controllers;
 
 use App\RequestValidators\RequestValidatorFactory;
 use App\RequestValidators\RegisterStudentRequestValidator;
-use App\Services\FacultyService;
+use App\Services\CollegeService;
 use App\Services\StudentService;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -14,10 +14,10 @@ use Slim\Views\Twig;
 class StudentController
 {
     public function __construct(
-        private readonly Twig $twig,
+        private readonly Twig                    $twig,
         private readonly RequestValidatorFactory $requestValidatorFactory,
-        private readonly StudentService $studentService,
-        private readonly FacultyService $facultyService,
+        private readonly StudentService          $studentService,
+        private readonly CollegeService          $collegeService,
     ){
     }
 
@@ -25,7 +25,7 @@ class StudentController
         return $this->twig->render(
             $response,
             '/student/registerStudent.twig',
-            ['faculties' => $this->facultyService->fetchFacultyNames()]
+            ['faculties' => $this->collegeService->fetchCollegeNames()]
         );
     }
 

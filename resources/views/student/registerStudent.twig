@@ -80,13 +80,13 @@
         </select>
         <div class="invalid-feedback">{{ errors.gender | first }}</div>
 
-        <select name="faculty" {{ errors.faculty ? 'is-invalid' : '' }}>
-            <option value="">Choose Faculty</option>
+        <select name="college" {{ errors.college ? 'is-invalid' : '' }}>
+            <option value="">Choose College</option>
             {% for f in faculties %}
                 <option value="{{ f.id }}">{{ f.name }}</option>
             {% endfor %}
         </select>
-        <div class="invalid-feedback">{{ errors.faculty | first }}</div>
+        <div class="invalid-feedback">{{ errors.college | first }}</div>
 
         <input type="password" name="password" placeholder="Password" {{ errors.password ? 'is-invalid' : '' }}>
         <div class="invalid-feedback">{{ errors.password | first }}</div>
